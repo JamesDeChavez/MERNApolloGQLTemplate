@@ -4,21 +4,21 @@ Boilerplate template using MERN, Apollo, GraphQL, Typescript and RTL/Jest testin
 
 ## Technologies Used
 
-Server Side Technologies:
-Express
-MongoDB (Mongoose)
-Apollo with Graphql (Apollo-Server-Express)
+Server Side Technologies:  
+Express  
+MongoDB (Mongoose)  
+Apollo with Graphql (Apollo-Server-Express)  
 
-Client Side Technologies:
-React
-Apollo Client
+Client Side Technologies:  
+React  
+Apollo Client  
 
-Testing Technologies:
-React Testing Library
-Jest
+Testing Technologies:  
+React Testing Library  
+Jest  
 
-General:
-Typescript
+General:  
+Typescript  
 
 ## Available Scripts
 
