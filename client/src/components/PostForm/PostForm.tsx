@@ -18,7 +18,9 @@ const PostForm: React.FC<Props> = ({ createPost }) => {
         authorId: ''
     });
     const [errors, setErrors] = useState<any>({});
-
+    
+    const navigate = useNavigate();
+    
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = [post.body];
@@ -26,7 +28,7 @@ const PostForm: React.FC<Props> = ({ createPost }) => {
         const validation = validate(formData, errorMessages);
         setErrors(validation);
         if(Object.keys(validation).length) return;
-        const navigate = useNavigate();
+        
         try {
             await createPost({ variables: post });
             setPost({body: '', authorId: ''});
