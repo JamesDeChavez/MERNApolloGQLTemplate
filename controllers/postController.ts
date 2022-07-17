@@ -17,6 +17,14 @@ export default {
             console.log(error);
         }
     },
+    findByUser: async (req: any) => {
+        try {
+            const request = await db.Post.find({ authorId: req.userId });
+            return request;
+        } catch (error) {
+            console.log(error);
+        }
+    },
     create: async (req: any) => {
         try {
             const request = await db.Post.create(req);

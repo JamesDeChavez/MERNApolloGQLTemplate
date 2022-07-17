@@ -64,7 +64,7 @@ export type MutationUpdateUserArgs = {
 export type Post = {
   __typename?: 'Post';
   _id?: Maybe<Scalars['ID']>;
-  authorId?: Maybe<Scalars['ID']>;
+  authorId?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
 };
 
@@ -91,6 +91,7 @@ export type User = {
   _id?: Maybe<Scalars['ID']>;
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
+  posts?: Maybe<Array<Maybe<Post>>>;
 };
 
 export type CreatePostMutationVariables = Exact<{

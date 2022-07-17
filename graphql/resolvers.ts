@@ -84,6 +84,16 @@ const resolvers = {
                 console.log(error);
             }
         }
+    },
+    User: {
+        posts: async (parent: any, args: any, context: any) => {
+            try {
+                const userPosts = await controller.Post.findByUser({ userId: parent._id });
+                return userPosts;
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 

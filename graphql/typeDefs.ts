@@ -5,12 +5,13 @@ const typeDefs = gql`
     _id: ID
     firstName: String
     lastName: String
+    posts: [Post]
   }
 
   type Post {
     _id: ID
     body: String
-    authorId: ID
+    authorId: String
   }
 
   type Query {
