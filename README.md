@@ -26,7 +26,7 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-To run client and server for application, using nodemon
+To concurrently run client and server for application
 
 ### `yarn client`
 
