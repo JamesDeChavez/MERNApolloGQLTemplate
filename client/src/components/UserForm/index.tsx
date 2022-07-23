@@ -2,10 +2,26 @@ import { GetAllUsersDocument, useCreateUserMutation } from '../../generated/grap
 import UserForm from './UserForm';
 
 const UserFormContainer = () => {
+
+    // This create mutation updates the cache when completed in order to avoid an additional network call.
+    // See PostForm component to see refetchQueries alternate solution
+
     const [createUser, {loading, error, data}] = useCreateUserMutation({
-        refetchQueries: [
-            { query: GetAllUsersDocument } 
-        ]
+        update(cache, { data }) {
+            const users: any = cache.readQuery({
+                query: GetAllUsersDocument
+            });
+
+            cache.writeQuery({
+                query: GetAllUsersDocument,
+                data: {
+                    getAllUsers: [
+                        data?.createUser,
+                        ...users.getAllUsers
+                    ]
+                }
+            })
+        }
     });
 
     if (loading) return <div>Loading...</div>;

@@ -8,16 +8,56 @@ export interface Props {
 }
 
 const UserListItemContainer: React.FC<Props> = (props) => {
+
+    // These mutations update the cache when completed in order to avoid an additional network call.
+    // See PostListitem component to see refetchQueries alternate solution
+
     const updateMutation = useUpdateUserMutation({
-        refetchQueries: [
-            { query: GetAllUsersDocument }
-        ]
+        update(cache, { data }) {
+            const users: any = cache.readQuery({
+                query: GetAllUsersDocument
+            });
+
+            const updatedUserList = [];
+
+            for (let user of users.getAllUsers) {
+                if (user._id === data?.updateUser?._id) {
+                    updatedUserList.push(data?.updateUser)
+                } else {
+                    updatedUserList.push(user);
+                }
+            };
+
+            cache.writeQuery({
+                query: GetAllUsersDocument,
+                data: {
+                    getAllUsers: [
+                        ...updatedUserList
+                    ]
+                }
+            })
+        }
     });
 
     const deleteMutation = useDeleteUserMutation({
-        refetchQueries: [
-            { query: GetAllUsersDocument }
-        ]
+        update(cache, { data }) {
+            const users: any = cache.readQuery({
+                query: GetAllUsersDocument
+            });
+
+            const updatedUserList = users.getAllUsers.filter((user: any) => 
+                user._id !== data?.deleteUser?._id
+            );
+
+            cache.writeQuery({
+                query: GetAllUsersDocument,
+                data: {
+                    getAllUsers: [
+                        ...updatedUserList
+                    ]
+                }
+            });
+        }
     });
 
     if (deleteMutation[1].loading) return <div>Loading...</div>;
